@@ -1,0 +1,70 @@
+.text-platzi{
+    color: #97c93e !important;
+}
+
+.btn-platzi{
+    background-color: #97c93e;
+    color: white;
+}
+.btn-platzi:hover{
+    background-color: #82ad36;
+}
+
+#header img{
+    width: 55px;
+}
+
+#text-carousel{
+    color: red;
+}
+#main .carousel-inner img{
+    max-height: 70vh;
+    object-fit: cover;
+    filter: grayscale(60%);
+    background-image: -600px;
+}
+
+#carousel{
+    position: relative;
+}
+
+#carousel .overlay{
+    position: absolute;
+    top: 40vh;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-attachment: rgba(0,0,0,0.5);
+    color: white;
+    z-index: 2;
+}
+
+#carousel .overlay .container,
+#carousel .overlay .row{
+    height: 100%;
+}
+
+#parrafo{
+    font-size: 14px;
+}
+#col-peliculas-populares{
+    max-height: 900px;
+}
+
+#place-time img{
+    max-width: 100%;
+}
+
+#place-time {
+    background-color: #343a40;
+    color: white;
+}
+#footer{
+    background: linear-gradient(90deg, #1c3643 0, #273b47 25%, #1e5372);
+
+}
+
+#footer a{
+    color: white;
+}
+
