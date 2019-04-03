@@ -4,6 +4,7 @@
 $(document).ready(function(){
     console.log('jquery inicializado')
 })
+$('#buscarPorActor').hide('slow')
 
 const URL_API = "https://api.themoviedb.org/3/movie/550?"
 const API_KEY = "api_key=d2f75c50a366b48f468d9a270511e992"
@@ -154,7 +155,7 @@ function recorrerArrayPeliculasPopulares(vector){
     });
 }
 
-//peliculasPopulares()
+peliculasPopulares()
 
 
 /*
@@ -166,6 +167,8 @@ para que se pueda hacer una busqueda Por nombre de pelicula
 $('#btnBuscarTituloMovie').click(function(){
     $('#main').hide('slow')
     $('#peliculasPopulares').hide('slow');
+    $('#buscarPorActor').hide('slow')
+    $('#peliculaConsultada').show()
     var nombrePelicula = $('#inputTituloMovie').val()
     getData(URL_QUERY_MOVIE+nombrePelicula,nombrePelicula).then(recorrerArrayPeliculaConsultada)
 })
@@ -210,6 +213,9 @@ $('#hrefPeliculasPopulares').click(function(){
     $('#inputTituloMovie').val('') 
     $('#main').show('slow')
     $('#peliculasPopulares').show('slow');
+    $('#buscarPorActor').hide('slow')
+    $('#peliculaConsultada').empty()
+    $('#peliculaConsultada').show()
     
 })
 
@@ -226,17 +232,14 @@ $('#hrefPeliculasPopulares').click(function(){
 $('#hrefActores').click(function(){
     $('#main').hide('slow')
     $('#peliculasPopulares').hide('slow');
-    $('#peliculaConsultada').hide('slow')
-    
-
+    $('#peliculaConsultada').hide('slow');
+    $('#buscarPorActor').show('slow')
 })
 var arrPeliculasPorNombreActor
-
 $('#btnBuscarPeliculaPorActor').click(function(){
-    let nombreActor = $('#nombreActor').val()
-    document.getElementById('listadoDePeliculasDeUnActor').innerHTML = ""
+    let nombreActor = $('#nombreActor').val()   
     arrPeliculasPorNombreActor = getData(URL_ACTOR+nombreActor).then(recorrerArrayActorDePelicula)
-    
+    $('#listadoDePeliculasDeUnActor').empty();
 })
 
 
@@ -277,9 +280,9 @@ function recorrerArrayActorDePelicula(vector){
 }
 
 function mostrarPeliculasDeUnActor(index){
+    $('#listadoDePeliculasDeUnActor').empty();
     var peliculasDeActor = arrPeliculasPorNombreActor.results[index]
-   console.log(peliculasDeActor)
-   
+   $('#nombreActor').val(`${peliculasDeActor.name}`)
     peliculasDeActor.known_for.forEach((movie,index) => { 
     document.getElementById('listadoDePeliculasDeUnActor').innerHTML +=`
     <div class="col-6 mt-4" ">
