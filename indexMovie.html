@@ -1,20 +1,14 @@
 <!doctype html>
 <html lang="en">
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Movies</title>
 </head>
-
 <body data-spy="scroll" data-target="#navbar" data-offset="78">
-
-    <!-- HEADER-->
-
+    <!-- HEADER NAV BAR-->
     <nav id="header" class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -28,10 +22,10 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#main">Generos <span class="sr-only">(current)</span></a>
+                        <a id="hrefPeliculasPopulares" class="nav-link" href="#main">Populares <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#speakers">Actores</a>
+                        <a id="hrefActores" class="nav-link" href="#">Actores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#place-time">Populares</a>
@@ -48,7 +42,7 @@
                             <input id="inputTituloMovie" type="text" class="form-control" placeholder="Tutulo Pelicula..."
                                 aria-label="Recipient's username" aria-describedby="basic-addon2">
                             <div class="input-group-append">
-                                <span id="btnBuscarTituloMovie" class="input-group-text">Buscar</span>
+                                <span id="btnBuscarTituloMovie" class="input-group-text btn btn-info">Buscar</span>
                             </div>
                         </div>
                     </li>
@@ -59,10 +53,7 @@
     </nav>
     <!-- / HEADER-->
 
-
-
-
-    <!-- MAIN  -->
+    <!-- MAIN CAROUSEL DE IMAGENES -->
     <main id="main">
         <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" data-pause="false">
             <div id="lista-carousel" class="carousel-inner">
@@ -93,18 +84,35 @@
     <section >
         <div class="container-fluid" >
             <div id="peliculaConsultada" class="row">
-
             </div>
         </div>
     </section>
-
     <!-- / MOSTAR PELICULA CONSULTADA-->
 
+<!-- BUSCAR POR ACTOR-->
+<section class="mt-4">
+    <div class="container-fluid mt-6">
+        <div class="input-group mb-3 ">
+            <input id="nombreActor" type="text" class="form-control" placeholder="Nombre del Actor" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+              <span class=" btn btn-danger" id="btnBuscarPeliculaPorActor" >Buscar</span>
+            </div>
+        </div>
+        <div id="listadoDePeliculasDeUnActor" class="row">
+                
+            </div>
+        <div id="peliculasDeActorConsultado" class="row">
+            
+        </div>
+
+    </div>
+</section>
+<!-- / BUSCAR POR ACTOR-->
 
 
 
 
-    <!-- Optional JavaScript -->
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
