@@ -72,10 +72,27 @@
     <section id="peliculasPopulares">
         <div class="container">
             <div class="row">
-                <div class="col text-center text-uppercase">
+                <div class="col-4 offset-4 text-center text-uppercase">
                     <small>Peliculas</small>
                     <h2>Mas Populares</h2>
                 </div>
+                <div class="col-4 mt-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-append">
+                          <button type="button" class="btn btn-outline-secondary">Ordenar</button>
+                          <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu">
+                            <a id="ordenarMasMenosReciente" class="dropdown-item" href="#">De mas a menos reciente</a>
+                            <a class="dropdown-item" href="#">De menos a mas reciente</a>
+                            <a class="dropdown-item" href="#">Segun puntuacion</a>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                
             </div>
         </div>
         <div class="container-fluid">

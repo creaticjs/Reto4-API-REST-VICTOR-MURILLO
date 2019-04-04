@@ -91,8 +91,9 @@ const GENEROS= [
     }
   ]
 const URL_ACTOR = "https://api.themoviedb.org/3/search/person?api_key=d2f75c50a366b48f468d9a270511e992&query="
-  function peliculasPopulares() {
-   getData(URL_MOVIES_POPULARES).then(recorrerArrayPeliculasPopulares).catch()
+var arrPeliculasPopulares
+function peliculasPopulares() {
+    getData(URL_MOVIES_POPULARES).then(recorrerArrayPeliculasPopulares)
 }
 
 function getData(url){
@@ -113,6 +114,7 @@ function getData(url){
 }
 
 function recorrerArrayPeliculasPopulares(vector){
+    arrPeliculasPopulares = vector
     vector.results.forEach((movie,index) => { 
         if(index===1){
         document.getElementById('lista-carousel').innerHTML +=`
@@ -153,6 +155,7 @@ function recorrerArrayPeliculasPopulares(vector){
         </div>
         `     
     });
+    
 }
 
 peliculasPopulares()
@@ -223,8 +226,53 @@ $('#hrefPeliculasPopulares').click(function(){
 
 // 2. FUNCION DE ORDENAR DE LA MAS RECIENTE A LA MAS ANTIGUA DE LAS PELICULAS
 
+$('#ordenarMasMenosReciente').click(function(){
+    ordenarMasMenosReciente(arrPeliculasPopulares.results)
+})
 
+function ordenarMasMenosReciente(vector){
+    console.log('vector de fechas')
+    
+   for (let i = 0; i < vector.length-1; i++) {
+       for (let j = 0; j < vector.length-1; j++) {
+           if(converFechaAMili(vector[j].release_date) < converFechaAMili(vector[j+1].release_date)){
+               let temp = vector[j+1]
+               vector[j+1] = vector[j]
+               vector[j] = temp
+           }
+       }
+   }
+   $('#lita-peliculas-populares').empty()
+   vector.forEach(movie => {
+    document.getElementById('lita-peliculas-populares').innerHTML +=`
+    <div id="col-peliculas-populares" class="col-6 mt-4">
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src=${IMG_URL+ movie.poster_path}  class="card-img" alt="...">
+                </div>
+                <div class="col-md-8" >
+                    <div class="card-body" >
+                        <h5 class="card-title">${movie.original_title}</h5>
+                        <p id="parrafo"class="card-text">${movie.overview}</p>
+                        <small class="card-text"><small class="text-muted">${movie.release_date}</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `     
 
+   });
+
+   
+
+}
+
+function converFechaAMili(cadena){
+    let arrfecha = String(cadena).split('-')
+    return new Date(arrfecha[0],arrfecha[1],arrfecha[2])
+}
 // 3. MOSTRAR SEGUN EL PUNTAJE LAS MEJORES PELICULAS
 
 
