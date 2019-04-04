@@ -227,10 +227,14 @@ $('#hrefPeliculasPopulares').click(function(){
 // 2. FUNCION DE ORDENAR DE LA MAS RECIENTE A LA MAS ANTIGUA DE LAS PELICULAS
 
 $('#ordenarMasMenosReciente').click(function(){
-    ordenarMasMenosReciente(arrPeliculasPopulares.results)
+    ordenarMasMenosReciente(arrPeliculasPopulares.results,'mayor')
 })
 
-function ordenarMasMenosReciente(vector){
+$('#ordenarMenosMasReciente').click(function(){
+    ordenarMasMenosReciente(arrPeliculasPopulares.results,'menor')
+})
+
+function ordenarMasMenosReciente(vector,tipo){
     console.log('vector de fechas')
     
    for (let i = 0; i < vector.length-1; i++) {
@@ -242,32 +246,64 @@ function ordenarMasMenosReciente(vector){
            }
        }
    }
+
    $('#lita-peliculas-populares').empty()
-   vector.forEach(movie => {
-    document.getElementById('lita-peliculas-populares').innerHTML +=`
-    <div id="col-peliculas-populares" class="col-6 mt-4">
-        <div class="card mb-3">
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src=${IMG_URL+ movie.poster_path}  class="card-img" alt="...">
-                </div>
-                <div class="col-md-8" >
-                    <div class="card-body" >
-                        <h5 class="card-title">${movie.original_title}</h5>
-                        <p id="parrafo"class="card-text">${movie.overview}</p>
-                        <small class="card-text"><small class="text-muted">${movie.release_date}</small></p>
+
+   if(tipo==='mayor'){
+    for (let index = 0; index < vector.length; index++) {
+        document.getElementById('lita-peliculas-populares').innerHTML +=`
+        <div id="col-peliculas-populares" class="col-6 mt-4">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src=${IMG_URL+ vector[index].poster_path}  class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8" >
+                        <div class="card-body" >
+                            <h5 class="card-title">${vector[index].original_title}</h5>
+                            <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    `     
+        `            
+    }
 
-   });
-
+   }else{
+    for (let index = vector.length-1; index >= 0; index--) {
+        document.getElementById('lita-peliculas-populares').innerHTML +=`
+        <div id="col-peliculas-populares" class="col-6 mt-4">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src=${IMG_URL+ vector[index].poster_path}  class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8" >
+                        <div class="card-body" >
+                            <h5 class="card-title">${vector[index].original_title}</h5>
+                            <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `     
+    }
+   }
    
-
+   
 }
+
+
+
+
+
+
+
+
 
 function converFechaAMili(cadena){
     let arrfecha = String(cadena).split('-')
