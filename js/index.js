@@ -1,6 +1,3 @@
-/*
-*/
-
 $(document).ready(function(){
     console.log('jquery inicializado')
 })
@@ -146,7 +143,8 @@ function recorrerArrayPeliculasPopulares(vector){
                     <div class="col-md-8" >
                         <div class="card-body" >
                             <h5 class="card-title">${movie.original_title}</h5>
-                            <p id="parrafo"class="card-text">${movie.overview}</p>
+                            <p id="parrafo" class="card-text">${movie.overview}</p>
+                            <p id="parrafo" class="card-text">${movie.popularity}</p>
                             <small class="card-text"><small class="text-muted">${movie.release_date}</small></p>
                         </div>
                     </div>
@@ -159,7 +157,6 @@ function recorrerArrayPeliculasPopulares(vector){
 }
 
 peliculasPopulares()
-
 
 /*
 Uso de jquery para ocultar el (main) que tiene las peliculas populares
@@ -209,7 +206,6 @@ function recorrerArrayPeliculaConsultada(vector){
     });
 }
 
-
 //Mostrar peliculas Populares despues de haber estado ocultas
 
 $('#hrefPeliculasPopulares').click(function(){
@@ -227,12 +223,15 @@ $('#hrefPeliculasPopulares').click(function(){
 // 2. FUNCION DE ORDENAR DE LA MAS RECIENTE A LA MAS ANTIGUA DE LAS PELICULAS
 
 $('#ordenarMasMenosReciente').click(function(){
+    $('#inputOrdenar').val('De mas a menos reciente')
     ordenarMasMenosReciente(arrPeliculasPopulares.results,'mayor')
 })
 
 $('#ordenarMenosMasReciente').click(function(){
+    $('#inputOrdenar').val('De menos a mas reciente')
     ordenarMasMenosReciente(arrPeliculasPopulares.results,'menor')
 })
+
 
 function ordenarMasMenosReciente(vector,tipo){
     console.log('vector de fechas')
@@ -262,6 +261,7 @@ function ordenarMasMenosReciente(vector,tipo){
                         <div class="card-body" >
                             <h5 class="card-title">${vector[index].original_title}</h5>
                             <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <p id="parrafo" class="card-text">${vector[index].popularity}</p>
                             <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
                         </div>
                     </div>
@@ -284,6 +284,7 @@ function ordenarMasMenosReciente(vector,tipo){
                         <div class="card-body" >
                             <h5 class="card-title">${vector[index].original_title}</h5>
                             <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <p id="parrafo" class="card-text">${vector[index].popularity}</p>
                             <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
                         </div>
                     </div>
@@ -298,19 +299,85 @@ function ordenarMasMenosReciente(vector,tipo){
 }
 
 
-
-
-
-
-
-
-
 function converFechaAMili(cadena){
     let arrfecha = String(cadena).split('-')
     return new Date(arrfecha[0],arrfecha[1],arrfecha[2])
 }
 // 3. MOSTRAR SEGUN EL PUNTAJE LAS MEJORES PELICULAS
 
+$('#ordenarMayorMenorPopularidad').click(function(){
+    $('#inputOrdenar').val('De mayor a menor popularidad')
+    ordenarSegunPopularidad(arrPeliculasPopulares.results,'mayor')
+})
+$('#ordenarMenorMayorPopularidad').click(function(){
+    $('#inputOrdenar').val('De menor a mayor popularidad')
+    ordenarSegunPopularidad(arrPeliculasPopulares.results,'menor')
+})
+
+function ordenarSegunPopularidad(vector,tipo){
+
+   for (let i = 0; i < vector.length-1; i++) {
+       for (let j = 0; j < vector.length-1; j++) {
+           if(vector[j].popularity < vector[j+1].popularity){
+               let temp = vector[j+1]
+               vector[j+1] = vector[j]
+               vector[j] = temp
+           }
+       }
+   }
+   console.log(vector.results)
+
+   $('#lita-peliculas-populares').empty()
+
+   if(tipo==='mayor'){
+    for (let index = 0; index < vector.length; index++) {
+        document.getElementById('lita-peliculas-populares').innerHTML +=`
+        <div id="col-peliculas-populares" class="col-6 mt-4">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src=${IMG_URL+ vector[index].poster_path}  class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8" >
+                        <div class="card-body" >
+                            <h5 class="card-title">${vector[index].original_title}</h5>
+                            <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <p id="parrafo"class="card-text">${vector[index].popularity}</p>
+                            <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `            
+    }
+
+   }else{
+    for (let index = vector.length-1; index >= 0; index--) {
+        document.getElementById('lita-peliculas-populares').innerHTML +=`
+        <div id="col-peliculas-populares" class="col-6 mt-4">
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img src=${IMG_URL+ vector[index].poster_path}  class="card-img" alt="...">
+                    </div>
+                    <div class="col-md-8" >
+                        <div class="card-body" >
+                            <h5 class="card-title">${vector[index].original_title}</h5>
+                            <p id="parrafo"class="card-text">${vector[index].overview}</p>
+                            <p id="parrafo"class="card-text">${vector[index].popularity}</p>
+                            <small class="card-text"><small class="text-muted">${vector[index].release_date}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `     
+    }
+   }
+   
+   
+}
 
 // 4. BUSCAR POR ACTOR Y LUEGO SI UN ACTOR HA TRABAJADO CON OTRO
 $('#hrefActores').click(function(){
@@ -325,7 +392,6 @@ $('#btnBuscarPeliculaPorActor').click(function(){
     arrPeliculasPorNombreActor = getData(URL_ACTOR+nombreActor).then(recorrerArrayActorDePelicula)
     $('#listadoDePeliculasDeUnActor').empty();
 })
-
 
 
 function recorrerArrayActorDePelicula(vector){
@@ -396,6 +462,8 @@ function mostrarPeliculasDeUnActor(index){
 
 
 // 6. Buscar Por genero de pelicula
+
+
 // Cada pelicula debe mostrar su genero y al dar click llevarnos a la lista de pelis de esa categoria
 
 
